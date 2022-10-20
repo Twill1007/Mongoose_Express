@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const Product = require('./models/product');
+const Farm = require('./models/farm');
 const methodOverride = require('method-override');
 
 
@@ -37,10 +38,32 @@ app.get('/products/new', (req, res) => {
 //Farm Routes
 
 app.get('/farms/new', (req, res) => {
-    res.render('/farms/new')
+    res.render('farms/new')
 })
 
+app.get('/farms', async (req, res) => {
+    const farms = await Farm.find({})
+    console.log(farms);
+    res.render('farms/index', { farms })
+});
 
+app.post('/farms', async (req, res) => {
+    const newFarm = new Farm(req.body);
+    await newFarm.save();
+    res.redirect('/farms')
+});
+
+app.get('/farms/:id', async (req, res) => {
+    const { id } = req.params;
+    const farm = await Farm.findById(id);
+    res.render('farms/show', { farm })
+});
+
+app.delete('/farms/:id', async (req, res) => {
+    const { id } = req.params;
+    const deleteFarm = await Farm.findByIdAndDelete(id);
+    res.redirect('/farms');
+});
 
 //Product Routes
 

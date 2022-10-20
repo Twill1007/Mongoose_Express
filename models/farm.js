@@ -1,5 +1,4 @@
-const { default: mongoose } = require('mongoose');
-const require = require('mongoose')
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const farmSchema = new Schema({
