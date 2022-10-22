@@ -13,14 +13,35 @@
 <body>
     <h1>
         <%= farm.name %>
-    </h1>
 
-    <a href="/farms">All Products</a>
+    </h1>
+    <ul>
+        <li>City: <%= farm.city %>
+        </li>
+        <li>Email: <%= farm.email %>
+        </li>
+    </ul>
+
+    <h2>Products</h2>
+    <ul>
+        <% for(let product of farm.products) { %>
+            <li>
+                <a href="/products/<%=product._id%>">
+                    <%=product.name%>
+                </a>
+
+            </li>
+            <% } %>
+    </ul>
+
+    <a href="/farms">All Farm</a>
     <a href="/farms/<%=farm._id%>/edit ">Edit</a>
-    <form action="/farm/<%=farm._id%>?_method=DELETE" method="POST">
+    <a href="/farms/<%=farm._id%>/products/new">Add Product</a>
+    <form action="/farms/<%=farm._id%>?_method=DELETE" method="POST">
         <button>Delete</button>
 
     </form>
+
 </body>
 
 </html>
